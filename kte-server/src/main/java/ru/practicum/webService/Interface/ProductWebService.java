@@ -1,7 +1,4 @@
 package ru.practicum.webService.Interface;
-/**
- * Soap веб служба товаров
- */
 
 import ru.practicum.cheque.dto.ChequeDto;
 import ru.practicum.product.dto.ProductInfo;
@@ -15,12 +12,9 @@ import javax.xml.ws.RequestWrapper;
 import javax.xml.ws.ResponseWrapper;
 import java.util.List;
 
-
-@WebService(name = "ProductService" ,targetNamespace = "http://kte.test-web-service")
+@WebService(name = "ProductService" ,targetNamespace = "http://soap")
 public interface ProductWebService {
-    /**
-     * @return список товаров
-     */
+
     @WebResult(name = "Product")
     @RequestWrapper(
             localName = "getAllProductRequest",
@@ -30,11 +24,6 @@ public interface ProductWebService {
             className = "owl.home.KTE.test.webservice.AllProductResponse")
     List<Product> getAllProduct();
 
-    /**
-     * @param productId - идентификатор продукта
-     * @param clientId - идентификатор клиента
-     * @return - информацию о товаре
-     */
     @WebResult(name = "ProductInfo")
     @RequestWrapper(
             localName = "getAdditionalProductInfoRequest",
@@ -46,10 +35,6 @@ public interface ProductWebService {
             @WebParam(name = "productId") long productId,
             @WebParam(name = "clientId") long clientId);
 
-    /**
-     * @param shopingList - запрос итоговой стоимости товара
-     * @return - ответ итоговой стоимости товаров
-     */
     @WebResult(name = "TotalPriceShopingLists")
     @RequestWrapper(
             localName = "getTotalPriceShopingListsRequest",

@@ -20,4 +20,5 @@ public interface ProductService {
     ProductInfo GettingProductInformation(@NotNull Long clientId, @NotNull Long productId);
     @NotNull
     Long getFinalPrice(@NotNull List<ShoppingDtoRequest> shoppingList, @NotNull Long clientId);
+    void updateDiscountColumn();
 }

@@ -2,6 +2,7 @@ package ru.practicum.product.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.client.model.Client;
@@ -21,6 +22,7 @@ import ru.practicum.shopping.dto.ShoppingDtoRequest;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 @Service
@@ -107,5 +109,14 @@ public class ProductServiceImpl implements ProductService {
                     product.getPrice()*shopping.getQuantity()/100*discount);
         }
         return totalPrice;
+    }
+
+    @Transactional
+    @Override
+    @Scheduled(cron = "@hourly")
+    public void updateDiscountColumn() {
+        productRepository.clearDiscountColumn();
+        Product product = productRepository.getRandomProduct();
+        productRepository.updateDiscountById(product.getId(), new Random().nextInt(6) + 5);
     }
 }

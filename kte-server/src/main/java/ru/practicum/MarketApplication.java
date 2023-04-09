@@ -17,13 +17,4 @@ public class MarketApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(MarketApplication.class, args);
 	}
-
-	@Autowired
-	ProductService productService;
-
-	@Async
-	@Scheduled(cron = "0 0 * * * *")
-	public void clearAndSetDiscount(){
-		productService.clearAndSetDiscountColumn();
-	}
 }
